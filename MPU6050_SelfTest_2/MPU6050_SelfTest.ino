@@ -2,23 +2,20 @@
 #include "MPU6050.h"
 #include "Wire.h"
 
-// Объявление объекта класса MPU6050, который имеет все необходимые методы для работы с датчиком
 MPU6050 accelgyro;
 
 void setup() {
     delay(3000);
-    // Подключение по шине I2C к MPU6500, инициализация последовательныго порта и датчика
+    // Connect to MPU6050
     Wire.begin(22,21);
     Serial.begin(38400);
     Serial.println(F("Initializing I2C devices..."));
     accelgyro.initialize();
+    // You can choose the full scale range
     accelgyro.setFullScaleGyroRange(MPU6050_GYRO_FS_1000);
     accelgyro.setFullScaleAccelRange(MPU6050_ACCEL_FS_8);
 
-    accelgyro.CalibrateAccel(6);
-    accelgyro.CalibrateGyro(6);
-
-    // Проверка соединения микроконтроллера и датчика
+    // Nest connection
     Serial.println(F("Testing device connections..."));
     Serial.println(accelgyro.testConnection() ? F("MPU6050 connection successful") : F("MPU6050 connection failed"));              
 
